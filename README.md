@@ -110,7 +110,7 @@ Note: Please wait for status of the pod to change to ‘Running’ before launch
 
 - Let’s update the guestbook and see how OpenShift’s image streams can help us update our apps with ease.
 Use the Explorer to edit index.html in the public directory. The path to this file is guestbook/v1/guestbook/public/index.html.
-Let’s edit the title to be more specific. On line number 12, that says <h1>Guestbook - v1</h1>, change it to include your name. Something like <h1>Alex's Guestbook - v1</h1>. Make sure to save the file when you’re done.
+Let’s edit the title to be more specific. On line number 12, that says Guestbook - v1, change it to include your name. Something like Alex's Guestbook - v1. Make sure to save the file when you’re done.
 
 -Build and push the app again using the same tag. This will overwrite the previous image.
 docker build . -t us.icr.io/$MY_NAMESPACE/guestbook:v1 && docker push us.icr.io/$MY_NAMESPACE/guestbook:v1
