@@ -130,3 +130,22 @@ oc import-image guestbook:v1 --from=us.icr.io/$MY_NAMESPACE/guestbook:v1 --confi
 -Return to the Developer perspective.
 
 -View the guestbook in the browser again. If you still have the tab open, go there. If not, click the Route again from the guestbook Deployment. You should see your new title on this page! OpenShift imported the new version of our image, and since the Deployment points to the image stream, it began running this new version as well.
+
+
+# Guestbook storage - on Redis
+
+From the guestbook in the browser, click the /info link beneath the input box. This is an information endpoint for the guestbook.
+- Notice that it says “In-memory datastore (not redis)”. Currently, we have only deployed the guestbook web front end, so it is using in-memory datastore to keep track of the entries. This is not very resilient, however, because any update or even a restart of the Pod will cause the entries to be lost. But let’s confirm this.
+- Return to the guestbook application in the browser by clicking the Route location again. You should see that your previous entries appear no more. This is because the guestbook was restarted when your update was deployed in the last section. We need a way to persist the guestbook entries even after restarts.
+- In order to deploy a more complex version of the guestbook, delete this simple version. From the Topology view, click the guestbook-app application. This is the light gray circle that surrounds the guestbook Deployment.
+- Click Actions > Delete Application.
+- Type in the application name and click Delete.
+
+# Deploy Redis master and slave
+
+## We’ve demonstrated that we need persistent storage in order for the guestbook to be effective. Let’s deploy Redis so that we get just that. Redis is an open source, in-memory data structure store, used as a database, cache and message broker.
+This application uses the v2 version of the guestbook web front end and adds on 1) a Redis master for storage and 2) a replicated set of Redis slaves. For all of these components, there are Kubernetes Deployments, Pods, and Services. One of the main concerns with building a multi-tier application on Kubernetes is resolving dependencies between all of these separately deployed components.
+In a multi-tier application, there are two primary ways that service dependencies can be resolved. The v2/guestbook/main.go code provides examples of each. For Redis, the master endpoint is discovered through environment variables. These environment variables are set when the Redis services are started, so the service resources need to be created before the guestbook Pods start. Consequently, we’ll follow a specific order when creating the application components. First, the Redis components will be created, then the guestbook application.
+   Note: If you have tried this lab earlier, there might be a possibility that the previous session is still persistent. In such a case, you will see an ‘Unchanged’ message instead of the ‘Created’ message when you run the Apply command for creating deployments. We recommend you to proceed with the next steps of the lab.
+
+-    From the terminal in the lab environment, change to the v2 directory.
