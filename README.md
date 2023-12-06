@@ -3,6 +3,10 @@
 # Built with Docker, components by Kubernetes on OpenShift leveraging Redis for Persistent Storage
 >>>>>>>
 >>>>>>> - Coding with IBM Cloud Services, week 5 Optional Practicum Introduction to Containers w/ Docker, Kubernetes & OpenShift Lab
+
+![Deployment of Repo](https://github.com/eldoma/guestbook/blob/main/v2/guestbook/Redis%20from%20my%20Github.png)
+
+
 - Clone the repo [ ! -d 'guestbook' ] && git clone [ https://github.com/source-repo]
 
 - cd guestbook
