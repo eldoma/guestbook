@@ -1,6 +1,6 @@
 <<<<<<< HEAD
 # guestbook coding project
-# Made with Docker, staged by Kubernetes on OpenShift
+# Built with Docker, components by Kubernetes on OpenShift using Redis for Persistent Storage
 >>>>>>> - Clone the repo [ ! -d 'guestbook' ] && git clone [ https://github.com/source-repo]
 
 - cd guestbook
@@ -170,6 +170,7 @@ oc get deployments
 - List Pods to see the Pod created by the Deployment:
 
 oc get pods
+
 _You can also return to the Topology view in the OpenShift web console and see that the Deployment has appeared there._
 - Run the following command or open the redis-master-service.yaml in the Explorer to familiarize yourself with the Service configuration for the Redis master:
 
@@ -186,3 +187,17 @@ oc apply -f redis-slave-deployment.yaml
 - Verify that the Deployment was created:
 
 oc get deployments
+
+_You can also return to the Topology view in the OpenShift web console and see that the Deployment has appeared there._
+- Run the following command or open the redis-slave-service.yaml in the Explorer to familiarize yourself with the Service configuration for the Redis slave.
+
+cat redis-slave-service.yaml
+
+- Create the Redis slave Service.
+
+oc apply -f redis-slave-service.yaml
+
+- If you click on the redis-slave Deployment in the Topology view, you should now see the redis-slave Service in the Resources tab.
+
+# Deploy v2 guestbook app
+Now it’s time to deploy the second version of the guestbook app, which will leverage Redis for persistent storage.
