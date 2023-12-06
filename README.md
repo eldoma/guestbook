@@ -147,5 +147,24 @@ From the guestbook in the browser, click the /info link beneath the input box. T
 This application uses the v2 version of the guestbook web front end and adds on 1) a Redis master for storage and 2) a replicated set of Redis slaves. For all of these components, there are Kubernetes Deployments, Pods, and Services. One of the main concerns with building a multi-tier application on Kubernetes is resolving dependencies between all of these separately deployed components.
 In a multi-tier application, there are two primary ways that service dependencies can be resolved. The v2/guestbook/main.go code provides examples of each. For Redis, the master endpoint is discovered through environment variables. These environment variables are set when the Redis services are started, so the service resources need to be created before the guestbook Pods start. Consequently, we’ll follow a specific order when creating the application components. First, the Redis components will be created, then the guestbook application.
    _Note: If you have tried this lab earlier, there might be a possibility that the previous session is still persistent. In such a case, you will see an ‘Unchanged’ message instead of the ‘Created’ message when you run the Apply command for creating deployments. We recommend you to proceed with the next steps of the lab._
-
 - From the terminal in the lab environment, change to the v2 directory.
+cd ../../v2
+- Run the following command or open the redis-master-deployment.yaml in the Explorer to familiarize yourself with the Deployment configuration for the Redis master.
+cat redis-master-deployment.yaml
+- Create the Redis master Deployment.
+oc apply -f redis-master-deployment.yaml
+- Verify that the Deployment was created.
+oc get deployments
+- List Pods to see the Pod created by the Deployment.
+oc get pods
+_You can also return to the Topology view in the OpenShift web console and see that the Deployment has appeared there._
+- Run the following command or open the redis-master-service.yaml in the Explorer to familiarize yourself with the Service configuration for the Redis master.
+cat redis-master-service.yaml
+- Create the Redis master Service.
+oc apply -f redis-master-service.yaml
+- Run the following command or open the redis-slave-deployment.yaml in the Explorer to familiarize yourself with the Deployment configuration for the Redis slave.
+cat redis-slave-deployment.yaml
+- Create the Redis slave Deployment.
+oc apply -f redis-slave-deployment.yaml
+- Verify that the Deployment was created.
+oc get deployments
