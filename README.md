@@ -2,7 +2,7 @@
 # coding-project-template
 =======
 # guestbook
-Made with Docker, staged by Kubernetes on OpenShift
+# Made with Docker, staged by Kubernetes on OpenShift
 >>>>>>> - Clone the repo [ ! -d 'guestbook' ] && git clone [ https://github.com/source-repo]
 
 -cd guestbook
@@ -30,7 +30,7 @@ Made with Docker, staged by Kubernetes on OpenShift
 -kubectl get hpa guestbook # check the current status of the newly-made HorizontalPodAutoscale (HPA)
 
 -kubectl run -i --tty load-generator --rm --image=busybox:1.36.0 --restart=Never -- /bin/sh -c "while sleep 0.01; do wget -q -O- <your app URL>; done" 
-# Open another new terminal and enter the above command to generate load on the app to observe the autoscaling (Please ensure your port-forward command is running. In case you have stopped your application, please run the port-forward command to re-run the application at port 3000.) Use the Port URL / same copied URL which of the previous task.
+## Open another new terminal and enter the above command to generate load on the app to observe the autoscaling (Please ensure your port-forward command is running. In case you have stopped your application, please run the port-forward command to re-run the application at port 3000.) Use the Port URL / same copied URL which of the previous task.
 
 
 -kubectl get hpa guestbook --watch # observe the replicas increase in accordance with the autoscaling
@@ -80,7 +80,7 @@ kubectl rollout undo deployment/guestbook --to-revision=1
 kubectl get rs
 
 
- IBM Cloud Container Registry scans images for common vulnerabilities and exposures to ensure that images are secure. But OpenShift also provides an internal registry. There is less latency when pulling images for deployments. What if we could use both—use IBM Cloud Container Registry to scan our images and then automatically import those images to the internal registry for lower latency?
+## IBM Cloud Container Registry scans images for common vulnerabilities and exposures to ensure that images are secure. But OpenShift also provides an internal registry. There is less latency when pulling images for deployments. What if we could use both—use IBM Cloud Container Registry to scan our images and then automatically import those images to the internal registry for lower latency?
 
 -Create an image stream that points to your image in IBM Cloud Container Registry:
 oc tag us.icr.io/$MY_NAMESPACE/guestbook:v1 guestbook:v1 --reference-policy=local --scheduled
