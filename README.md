@@ -1,7 +1,9 @@
 <<<<<<< 
-# A simple guestbook coding project with IBM
+# A simple guestbook coding project
 # Built with Docker, components by Kubernetes on OpenShift using Redis for Persistent Storage
->>>>>>> - Clone the repo [ ! -d 'guestbook' ] && git clone [ https://github.com/source-repo]
+>>>>>>>
+>>>>>>> - Coding with IBM Cloud Services
+- Clone the repo [ ! -d 'guestbook' ] && git clone [ https://github.com/source-repo]
 
 - cd guestbook
 
