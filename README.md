@@ -44,6 +44,7 @@ Perform Rolling Updates and Rollbacks on the Guestbook application:
 
 - update the title and header in index.html to any other suitable title
 - Run the below command to build and push your updated app image:
+  
 docker build . -t us.icr.io/$MY_NAMESPACE/guestbook:v1 && docker push us.icr.io/$MY_NAMESPACE/guestbook:v1
 
 IF FAIL, run this first:
@@ -51,9 +52,11 @@ IF FAIL, run this first:
 Do this prior running every changes in html or deployment file.*
 
 - Update the values of the CPU in the deployment.yml to cpu: 5m and cpu: 2m as below:
+  
 kubectl apply -f deployment.yml
 
 - Open a new terminal and run the port-forward command again to start the app:
+  
 kubectl port-forward deployment.apps/guestbook 3000:3000  
 
 - Launch application on Port 3000
@@ -63,21 +66,24 @@ kubectl port-forward deployment.apps/guestbook 3000:3000
 ## Please stop the application before running the next steps.
 
 - Run the below command to see the history of deployment rollouts:
+  
 kubectl rollout history deployment/guestbook
 
 - Run the below command to see the details of Revision of the deployment rollout:
+  
 kubectl rollout history deployments guestbook --revision=2
 
 - Run the below command to get the replica sets and observe the deployment which is being used now:
+  
 kubectl get rs
 
 - Run the below command to undo the deploymnent and set it to Revision 1:
+  
 kubectl rollout undo deployment/guestbook --to-revision=1
 
-
 - Run the below command to get the replica sets after the Rollout has been undone:
+  
 kubectl get rs
-
 
 ## IBM Cloud Container Registry scans images for common vulnerabilities and exposures to ensure that images are secure. But OpenShift also provides an internal registry. 
 There is less latency when pulling images for deployments. 
@@ -113,10 +119,12 @@ Use the Explorer to edit index.html in the public directory. The path to this fi
 Let’s edit the title to be more specific. On line number 12, that says Guestbook - v1, change it to include your name. Something like Alex's Guestbook - v1. Make sure to save the file when you’re done.
 
 - Build and push the app again using the same tag. This will overwrite the previous image.
+- 
 docker build . -t us.icr.io/$MY_NAMESPACE/guestbook:v1 && docker push us.icr.io/$MY_NAMESPACE/guestbook:v1
 
-IF FAIL, run this first:
--export MY_NAMESPACE=sn-labs-$USERNAME *# Export namespace as an environment variable so that it can be used in subsequent commands. Do this prior running every changes in html or deployment file.*
+- IF FAIL, run this first:
+
+export MY_NAMESPACE=sn-labs-$USERNAME *# Export namespace as an environment variable so that it can be used in subsequent commands. Do this prior running every changes in html or deployment file.*
 
 - Recall the --schedule option we specified when we imported our image into the OpenShift internal registry. As a result, OpenShift will regularly import new images pushed to the specified tag. Since we pushed our newly built image to the same tag, OpenShift will import the updated image within about 15 minutes. If you don’t want to wait for OpenShift to automatically import the image, run the following command:
 oc import-image guestbook:v1 --from=us.icr.io/$MY_NAMESPACE/guestbook:v1 --confirm
@@ -157,17 +165,24 @@ cat redis-master-deployment.yaml
   
 oc apply -f redis-master-deployment.yaml
 - Verify that the Deployment was created:
+
 oc get deployments
 - List Pods to see the Pod created by the Deployment:
+
 oc get pods
 _You can also return to the Topology view in the OpenShift web console and see that the Deployment has appeared there._
 - Run the following command or open the redis-master-service.yaml in the Explorer to familiarize yourself with the Service configuration for the Redis master:
+
 cat redis-master-service.yaml
 - Create the Redis master Service:
+
 oc apply -f redis-master-service.yaml
 - Run the following command or open the redis-slave-deployment.yaml in the Explorer to familiarize yourself with the Deployment configuration for the Redis slave:
+
 cat redis-slave-deployment.yaml
 - Create the Redis slave Deployment:
+
 oc apply -f redis-slave-deployment.yaml
 - Verify that the Deployment was created:
+
 oc get deployments
