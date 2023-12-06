@@ -1,7 +1,5 @@
 <<<<<<< HEAD
-# coding-project-template
-=======
-# guestbook
+# guestbook coding project
 # Made with Docker, staged by Kubernetes on OpenShift
 >>>>>>> - Clone the repo [ ! -d 'guestbook' ] && git clone [ https://github.com/source-repo]
 
@@ -30,12 +28,14 @@
 -kubectl get hpa guestbook # check the current status of the newly-made HorizontalPodAutoscale (HPA)
 
 -kubectl run -i --tty load-generator --rm --image=busybox:1.36.0 --restart=Never -- /bin/sh -c "while sleep 0.01; do wget -q -O- <your app URL>; done" 
-## Open another new terminal and enter the above command to generate load on the app to observe the autoscaling (Please ensure your port-forward command is running. In case you have stopped your application, please run the port-forward command to re-run the application at port 3000.) Use the Port URL / same copied URL which of the previous task.
+## Open another new terminal and enter the above command to generate load on the app to observe the autoscaling (Please ensure your port-forward command is running. 
+In case you have stopped your application, please run the port-forward command to re-run the application at port 3000.) 
+Use the Port URL / same copied URL which of the previous task.(You might need to open between 2-4 terminals for this App).
 
 
 -kubectl get hpa guestbook --watch # observe the replicas increase in accordance with the autoscaling
 
--Please close the other terminals where load generator (optional to close) and port-forward commands are running.
+## (Optional) Please close the other terminals where load generator (optional to close) and port-forward commands are running.
 -Open new terminal, Run the below command to observe the details of the horizontal pod autoscaler:
 kubectl get hpa guestbook
 
@@ -46,21 +46,20 @@ Perform Rolling Updates and Rollbacks on the Guestbook application:
 docker build . -t us.icr.io/$MY_NAMESPACE/guestbook:v1 && docker push us.icr.io/$MY_NAMESPACE/guestbook:v1
 
 IF FAIL, run this first:
--export MY_NAMESPACE=sn-labs-$USERNAME # Export namespace as an environment variable so that it can be used in subsequent commands. Do this prior running every changes in html or deployment file.
+-export MY_NAMESPACE=sn-labs-$USERNAME # Export namespace as an environment variable so that it can be used in subsequent commands. 
+Do this prior running every changes in html or deployment file.
 
 - Update the values of the CPU in the deployment.yml to cpu: 5m and cpu: 2m as below:
 kubectl apply -f deployment.yml
-
 
 -Open a new terminal and run the port-forward command again to start the app:
 kubectl port-forward deployment.apps/guestbook 3000:3000  
 
 -Launch application on Port 3000
 
-- App will be updated
+- pp will be updated
 
-
-Please stop the application before running the next steps.
+## Please stop the application before running the next steps.
 
 -Run the below command to see the history of deployment rollouts:
 kubectl rollout history deployment/guestbook
@@ -80,7 +79,9 @@ kubectl rollout undo deployment/guestbook --to-revision=1
 kubectl get rs
 
 
-## IBM Cloud Container Registry scans images for common vulnerabilities and exposures to ensure that images are secure. But OpenShift also provides an internal registry. There is less latency when pulling images for deployments. What if we could use both—use IBM Cloud Container Registry to scan our images and then automatically import those images to the internal registry for lower latency?
+## IBM Cloud Container Registry scans images for common vulnerabilities and exposures to ensure that images are secure. But OpenShift also provides an internal registry. 
+There is less latency when pulling images for deployments. 
+What if we could use both—use IBM Cloud Container Registry to scan our images and then automatically import those images to the internal registry for lower latency?
 
 -Create an image stream that points to your image in IBM Cloud Container Registry:
 oc tag us.icr.io/$MY_NAMESPACE/guestbook:v1 guestbook:v1 --reference-policy=local --scheduled
@@ -93,7 +94,8 @@ oc tag us.icr.io/$MY_NAMESPACE/guestbook:v1 guestbook:v1 --reference-policy=loca
 
 -Under Image, switch to “Image stream tag from internal registry“.
 
--Select your project, and the image stream and tag you just created (guestbook and v1, respectively). You should have only have one option for each of these fields anyway since you only have access to a single project and you only created one image stream and one image stream tag.
+-Select your project, and the image stream and tag you just created (guestbook and v1, respectively). 
+You should have only have one option for each of these fields anyway since you only have access to a single project and you only created one image stream and one image stream tag.
 
 -Keep all the default values and hit Create at the bottom. This will create the application and take you to the Topology view.
 
