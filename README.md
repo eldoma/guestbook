@@ -1,5 +1,5 @@
-<<<<<<< HEAD
-# guestbook coding project
+<<<<<<< 
+# A simple guestbook coding project with IBM
 # Built with Docker, components by Kubernetes on OpenShift using Redis for Persistent Storage
 >>>>>>> - Clone the repo [ ! -d 'guestbook' ] && git clone [ https://github.com/source-repo]
 
@@ -201,3 +201,32 @@ oc apply -f redis-slave-service.yaml
 
 # Deploy v2 guestbook app
 Now it’s time to deploy the second version of the guestbook app, which will leverage Redis for persistent storage.
+
+- Click the +Add button to add a new application to this project.
+To demonstrate the various options available in OpenShift, we’ll deploy this guestbook app using an OpenShift build and the Dockerfile from the repo.
+
+- Click the From Dockerfile option, or from Git Repo
+  
+- Paste the below URL in the Git Repo URL box.
+ https://github.com/ibm-developer-skills-network/guestbook
+
+- Click Show Advanced Git Options.
+Since the Dockerfile isn’t at the root of the repository, we need to tell OpenShift where it is. Enter /v2/guestbook in the Context Dir box.
+
+- Under Container Port, enter 3000.
+
+- Leave the rest of the default options and click Create.
+Since we gave OpenShift a Dockerfile, it will create a BuildConfig and a Build that will build an image using the Dockerfile, push it to the internal registry, and use that image for a Deployment.
+
+- From the Topology view, click the guestbook Deployment.
+In the Resources tab, click the Route location to load the guestbook in the browser. Notice that the header says “Guestbook - v2” instead of “Guestbook - v1”.
+_Note: Please wait for the Builds to complete before clicking on the route link_
+
+- From the guestbook in the browser, click the /info link beneath the input box.
+- Notice that it now gives information on Redis since we’re no longer using the in-memory datastore.
+- After doing the above, if you do not see any route to your guestbook app, please run the below command in the terminal to get the app route:
+
+oc status
+
+The guestbook app may show a ‘Waiting for Database connection’ status for some time after clicking on the route, due to which, the entries added in the box will not appear. You may have to wait for sometime for the app to be ready and then add your entries to see them appear correctly.
+
