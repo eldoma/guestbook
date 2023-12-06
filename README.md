@@ -7,19 +7,19 @@
 
 - cd v1/guestbook
 
-- export MY_NAMESPACE=sn-labs-$USERNAME # Export namespace as an environment variable so that it can be used in subsequent commands. Do this prior running every changes in html or deployment file.
+- export MY_NAMESPACE=sn-labs-$USERNAME *# Export namespace as an environment variable so that it can be used in subsequent commands. Do this prior running every changes in html or deployment file.*
 
-- docker build . -t us.icr.io/$MY_NAMESPACE/guestbook:v1 #Building guestbook
+- docker build . -t us.icr.io/$MY_NAMESPACE/guestbook:v1 *# Building guestbook*
 
-- docker push us.icr.io/$MY_NAMESPACE/guestbook:v1 # Push the image to IBM Cloud Container Registry
+- docker push us.icr.io/$MY_NAMESPACE/guestbook:v1 *# Push the image to IBM Cloud Container Registry*
 
 - ibmcloud cr images # Verify that the image was pushed successfully.
 
 - Replace <your sn labs namespace> with your SN labs namespace. To check your SN labs namespace, please run the command ibmcloud cr namespaces
 
-- kubectl apply -f deployment.yml # Apply Deployment. 
+- kubectl apply -f deployment.yml *# Apply Deployment.* 
 
-- kubectl port-forward deployment.apps/guestbook 3000:3000 # Launching our application on port 3000
+- kubectl port-forward deployment.apps/guestbook 3000:3000 *# Launching our application on port 3000*
 
 - Try out the guestbook by putting in a few entries.
 
@@ -47,8 +47,8 @@ Perform Rolling Updates and Rollbacks on the Guestbook application:
 docker build . -t us.icr.io/$MY_NAMESPACE/guestbook:v1 && docker push us.icr.io/$MY_NAMESPACE/guestbook:v1
 
 IF FAIL, run this first:
-- export MY_NAMESPACE=sn-labs-$USERNAME # Export namespace as an environment variable so that it can be used in subsequent commands. 
-Do this prior running every changes in html or deployment file.
+- export MY_NAMESPACE=sn-labs-$USERNAME *# Export namespace as an environment variable so that it can be used in subsequent commands. 
+Do this prior running every changes in html or deployment file.*
 
 - Update the values of the CPU in the deployment.yml to cpu: 5m and cpu: 2m as below:
 kubectl apply -f deployment.yml
@@ -116,7 +116,7 @@ Let’s edit the title to be more specific. On line number 12, that says Guestbo
 docker build . -t us.icr.io/$MY_NAMESPACE/guestbook:v1 && docker push us.icr.io/$MY_NAMESPACE/guestbook:v1
 
 IF FAIL, run this first:
--export MY_NAMESPACE=sn-labs-$USERNAME # Export namespace as an environment variable so that it can be used in subsequent commands. Do this prior running every changes in html or deployment file.
+-export MY_NAMESPACE=sn-labs-$USERNAME *# Export namespace as an environment variable so that it can be used in subsequent commands. Do this prior running every changes in html or deployment file.*
 
 - Recall the --schedule option we specified when we imported our image into the OpenShift internal registry. As a result, OpenShift will regularly import new images pushed to the specified tag. Since we pushed our newly built image to the same tag, OpenShift will import the updated image within about 15 minutes. If you don’t want to wait for OpenShift to automatically import the image, run the following command:
 oc import-image guestbook:v1 --from=us.icr.io/$MY_NAMESPACE/guestbook:v1 --confirm
@@ -146,6 +146,6 @@ From the guestbook in the browser, click the /info link beneath the input box. T
 ## We’ve demonstrated that we need persistent storage in order for the guestbook to be effective. Let’s deploy Redis so that we get just that. Redis is an open source, in-memory data structure store, used as a database, cache and message broker.
 This application uses the v2 version of the guestbook web front end and adds on 1) a Redis master for storage and 2) a replicated set of Redis slaves. For all of these components, there are Kubernetes Deployments, Pods, and Services. One of the main concerns with building a multi-tier application on Kubernetes is resolving dependencies between all of these separately deployed components.
 In a multi-tier application, there are two primary ways that service dependencies can be resolved. The v2/guestbook/main.go code provides examples of each. For Redis, the master endpoint is discovered through environment variables. These environment variables are set when the Redis services are started, so the service resources need to be created before the guestbook Pods start. Consequently, we’ll follow a specific order when creating the application components. First, the Redis components will be created, then the guestbook application.
-   Note: If you have tried this lab earlier, there might be a possibility that the previous session is still persistent. In such a case, you will see an ‘Unchanged’ message instead of the ‘Created’ message when you run the Apply command for creating deployments. We recommend you to proceed with the next steps of the lab.
+   _Note: If you have tried this lab earlier, there might be a possibility that the previous session is still persistent. In such a case, you will see an ‘Unchanged’ message instead of the ‘Created’ message when you run the Apply command for creating deployments. We recommend you to proceed with the next steps of the lab._
 
 - From the terminal in the lab environment, change to the v2 directory.
